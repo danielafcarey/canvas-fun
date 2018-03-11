@@ -71,6 +71,13 @@ window.addEventListener('mousemove', function(event) {
   mouseLocation.y = event.y;
 })
 
+window.addEventListener('touchmove', function(event) {
+  var touch = event.touches[0]
+    mouseLocation.x = touch.clientX;
+    mouseLocation.y = touch.clientY;
+  console.log(mouseLocation);
+})
+
 window.addEventListener('resize', function() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
