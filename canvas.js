@@ -49,12 +49,12 @@ var mouseLocation = {
   y: undefined,
 }
 
-var maxRadius = 60;
+var maxRadius = 200;
 
 var colorArray = []
 
 function getRandomColors() {
-  for (var i = 0; i < 500; i++) {
+  for (var i = 0; i < 800; i++) {
     var r = Math.floor(Math.random() * 255);
     var g = Math.floor(Math.random() * 255);
     var b = Math.floor(Math.random() * 255);
@@ -101,7 +101,7 @@ function Circle(x, y, dx, dy, radius) {
     c.fill();
   }
 
-  this.update = function() {
+  this.updateGrow = function() {
     this.x += this.dx;
     this.y += this.dy;
 
@@ -111,11 +111,11 @@ function Circle(x, y, dx, dy, radius) {
       this.dy = -this.dy;
     }
 
-    //interactivity
-    if (mouseLocation.x - this.x < 50 
-        && mouseLocation.x - this.x > -50 
-        && mouseLocation.y - this.y < 50 
-        && mouseLocation.y - this.y > -50) {
+    if (mouseLocation.x - this.x < 80 
+        && mouseLocation.x - this.x > -80 
+        && mouseLocation.y - this.y < 80 
+        && mouseLocation.y - this.y > -80) {
+
       if (this.radius < maxRadius) {
         this.radius += 1;
       }
@@ -123,9 +123,42 @@ function Circle(x, y, dx, dy, radius) {
       this.radius -= 1;
     }
 
-
     this.draw();
+
   }
+
+  // this.updateErase = function() {
+  //   this.x += this.dx;
+  //   this.y += this.dy;
+
+  //   if (this.x + this.radius > innerWidth || this.x < this.radius) {
+  //     this.dx = -this.dx;
+  //   } else if (this.y + this.radius > innerHeight || this.y < this.radius) {
+  //     this.dy = -this.dy;
+  //   }
+
+  //   if (mouseLocation.x - this.x < 80 
+  //       && mouseLocation.x - this.x > -80 
+  //       && mouseLocation.y - this.y < 80 
+  //       && mouseLocation.y - this.y > -80) {
+
+  //   // erase circles
+  //     this.x = -this.x;
+  //     this.y = -this.y;
+  //   }
+
+
+  //   this.draw();
+  // }
+
+//OTHER ANIMATIONS
+    //crazytown circles on hover
+      // this.dx += (Math.random() - 0.5) * 10;
+      // this.dy += (Math.random() - 0.5) * 10;
+
+    //dodge circles on hover - FIX THIS --> needs to push circles out of mouse area
+      // this.dx = -this.dx;
+      // this.dy = -this.dy;
 }
 
 var circleArray = []
@@ -133,8 +166,8 @@ var circleArray = []
 
 function init() {
   circleArray = [];
-  for (var i = 0; i < 500; i++) {
-    var radius = Math.random() * 3 + 1;
+  for (var i = 0; i < 800; i++) {
+    var radius = Math.random() * 15 + 1;
     var x = Math.random() * (innerWidth - radius * 2) + radius;
     var dx = (Math.random() - 0.5) * 2;
     var y = Math.random() * (innerHeight  - radius * 2) + radius;
@@ -145,19 +178,31 @@ function init() {
   }
 }
 
-function animateCircle() {
-  requestAnimationFrame(animateCircle);
+function growCircle() {
+  requestAnimationFrame(growCircle);
   c.clearRect(0, 0, innerWidth, innerHeight);
 
   for (var i = 0; i < circleArray.length; i++) {
-    circleArray[i].update();
-    
+    circleArray[i].updateGrow();
   }
 
 }
 
+
+
 init();
-animateCircle();
+growCircle();
+
+// $('#erase-btn').on('click', eraseCircle);
+// function eraseCircle() {
+//   requestAnimationFrame(growCircle);
+//   c.clearRect(0, 0, innerWidth, innerHeight);
+
+//   for (var i = 0; i < circleArray.length; i++) {
+//     circleArray[i].updateErase();
+//   }
+
+// }
 
 
 
