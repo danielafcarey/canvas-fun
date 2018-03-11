@@ -72,10 +72,10 @@ window.addEventListener('mousemove', function(event) {
 })
 
 window.addEventListener('touchmove', function(event) {
+  event.preventDefault();
   var touch = event.touches[0]
-    mouseLocation.x = touch.clientX;
-    mouseLocation.y = touch.clientY;
-  console.log(mouseLocation);
+  mouseLocation.x = touch.clientX;
+  mouseLocation.y = touch.clientY;
 })
 
 window.addEventListener('resize', function() {
